@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+body, 
+html {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.three-container {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+}
+
+.container-settings {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    position: relative;
+    z-index: 2;
+    background-color: #333;
+    height: 45px;
+}
+
+.title-trajectory {
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+.container-view {
+    height: 33px;
+    width: 33px;
+    cursor: pointer;
+}
+
+.container-reset {
+    height: 33px;
+    width: 33px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.views {
+    z-index: 3;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    background-color: gray;
+    width: 40%;
+    justify-content: space-around;
+    left: 60%;
+    height: 20%;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+}
+
+.view-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.img-trajectory {
+    height: 100%;
+    object-fit: contain;
+    width: 100%;
+}
+
+.img-reset {
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.bowler-view, .slip-view, .stumps-view {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+}

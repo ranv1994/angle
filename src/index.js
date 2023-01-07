@@ -410,5 +410,41 @@ function animate() {
 
 renderer.setAnimationLoop(animate);
 
-playTheseBalls(true, "demo1", "demo2"); 
+//setView("bowler");
+playTheseBalls(false, "demo1", "demo1", "demo1", "demo1", "demo1", "demo1"); 
 
+
+
+//code by Ranveer for next changes
+let mToken = 'e9a8cd857f01e5f88127787d3931b63a';
+let mParam = new URLSearchParams(window.location.search);
+setAllFilters(mParam.get('entity_matchId'),mParam.get('matchId'));
+function setAllFilters(eid,matchId){
+    let data = [];
+    let url = "https://rest.entitysport.com/v2/matches/"+eid+"/innings/info?token="+mToken;
+    fetch(url).then(res => res.json())
+    .then(api_request => {
+        if(api_request.status == 'ok'){
+            data['innings'] = api_request.response.innings;
+			let inning_number = api_request.response.innings[0].number;
+			let url2 = "https://rest.entitysport.com/v2/matches/"+eid+"/innings/"+inning_number+"/commentary?actualball=1&token="+mToken;
+			fetch(url2).then(res => res.json())
+            .then(api_request2 => {
+                if(api_request2.status == 'ok'){
+                    data['inning_data'] = api_request2.response;
+                    let filepath = 'https://post-feeds.s3.ap-south-1.amazonaws.com/Delivery_1_1_1_'+matchId+'.json';
+                    fetch('http://localhost/widget_entity/welcome/get_data?path='+filepath).then(res => res.json())
+                    .then(api_request3 => {
+                        //api_request3.match.delivery.trajectory.trajectoryData = '';
+                        data['first'] = api_request3;
+                        //playTheseBalls(false, api_request3); 
+                    });
+                }
+            });
+        }
+    });
+}
+
+function setToHtmlFilters(){
+
+}

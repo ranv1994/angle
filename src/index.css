@@ -89,3 +89,146 @@ html {
     font-family: 'Inter', sans-serif;
     cursor: pointer;
 }
+
+/* old design css */
+.forMydesk,
+.graphFooter{
+    width: 100%;
+    background: #fff;
+    position: absolute;
+    bottom: -250px;
+}
+#cmFilters{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 6%;
+}
+#cmFilters .innigfilt,
+#cmFilters .bowlfilt,
+#cmFilters .overfilt,
+#cmFilters .batsfilt,
+#cmFilters .wicketfilt,
+#cmFilters .ballfilt{
+    margin: 0 auto;
+    width: 31%;
+    margin-top: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+#cmFilters select,
+.mywickets{
+    padding: 8px;
+    width: 100%;
+    margin-top: 3px;
+    border: 1px solid #ff2100;
+    border-radius: 4px;
+    font-weight: 600;
+    color: #050A5C;
+    text-transform: uppercase;
+    font-size: 16px;
+    background: #fff;
+    appearance: none;
+    /* background-image: url('../assets/images/selectbox_arrow.svg'); */
+    background-repeat: no-repeat;
+    background-position-x: 96%;
+    background-position-y: 10px;
+    background-size: 17px;
+    padding-right: 40px;
+}
+.appfilt a{
+    color: #fff;
+    background-color: #FF2100;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 33px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 700;
+    width: 32%;
+}
+.appfilt{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin: 0 7%;
+    margin-top: 15px;
+}
+figure p{
+    margin-top: 15px;
+    margin-bottom: 0;
+    font-weight: 700;
+    margin-left: 7%;
+    font-size: 18px;
+}
+figure label{
+    color: #FF2100;
+    font-weight: 700;
+}
+figure .textBallInfo{
+    margin: 8px 0;
+    color: #fff;
+    text-align: center;
+    text-transform: capitalize;
+    background: #FF2100;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 37px;
+}
+.graphFooter{
+    background: #fff;
+    color: #FF2100;
+    padding-bottom: 10px;
+    background-size: 100%;
+    text-transform: uppercase;
+}
+@media screen and  (max-width: 767px){
+    .forMydesk,
+    .graphFooter{
+        width: 100%;
+    }
+    figure .textBallInfo{
+        line-height: 20px;
+        padding: 5px 5px;
+        font-size: 18px;
+        font-weight: 700;
+        box-shadow: none;
+        margin: 5px 5px;
+        line-height: 23px;
+    }
+    .forMydesk{
+        padding-top: 2px;
+    }
+    #cmFilters .innigfilt,
+    #cmFilters .bowlfilt,
+    #cmFilters .overfilt,
+    #cmFilters .batsfilt,
+    #cmFilters .wicketfilt,
+    #cmFilters .ballfilt{
+        width: 93%;
+    }
+    #cmFilters select, .mywickets{
+        border: 1px solid #FF2100;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    figure label{
+        font-size: 14px;
+    }
+    figure p{
+        margin-left: 12px;
+        font-size: 18px;
+        margin-top: 2px;
+    }
+    .appfilt a{
+        width: 93%;
+    }
+    #cmFilters{
+        margin: 0;
+    }
+    .appfilt{
+        margin: 0;
+        margin-top: 15px;
+    }
+}

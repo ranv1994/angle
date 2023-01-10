@@ -26,8 +26,14 @@
 
         </div>
         <div class="graphFooter">
-            
-            <p>All Balls</p>
+            <div class="buttons-angle-head">
+                <div class="buttons-angle">
+                    <div class="anglechange active" onclick="changeView(this,'stumps');" data-change="front">Stumps</div>
+                    <div class="anglechange" onclick="changeView(this,'bowler');" data-change="back">Bowler</div>
+                    <div class="anglechange" onclick="changeView(this,'slip');" data-change="sideLeft">Slip</div>       
+                </div>
+            </div>
+            <p class="headline-filter">All Balls</p>
             <div id="cmFilters">
                 <div class="innigfilt">
                     <label>Innings</label>

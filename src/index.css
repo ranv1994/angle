@@ -9,12 +9,12 @@ html {
 .container {
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 70vh;
 }
 
 .three-container {
     position: absolute;
-    height: 100vh;
+    height: 70vh;
     width: 100%;
 }
 
@@ -28,6 +28,7 @@ html {
     z-index: 2;
     background-color: #333;
     height: 45px;
+    display: none;
 }
 
 .title-trajectory {
@@ -68,20 +69,20 @@ html {
 .view-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    /* object-fit: cover; */
 }
 
 .img-trajectory {
     height: 100%;
-    object-fit: contain;
-    width: 100%;
+    /* object-fit: contain; */
+    width: 30px;
 }
 
 .img-reset {
     height: 100%;
-    object-fit: cover;
+    /* object-fit: cover; */
     border-radius: 8px;
-    width: 100%;
+    width: 30px;
 }
 
 .bowler-view, .slip-view, .stumps-view {
@@ -91,7 +92,6 @@ html {
 }
 
 /* old design css */
-.forMydesk,
 .graphFooter{
     width: 100%;
     background: #fff;
@@ -102,6 +102,9 @@ html {
     display: flex;
     flex-wrap: wrap;
     margin: 0 6%;
+}
+.headline-filter{
+    text-align: center;
 }
 #cmFilters .innigfilt,
 #cmFilters .bowlfilt,
@@ -180,11 +183,44 @@ figure .textBallInfo{
     background: #fff;
     color: #FF2100;
     padding-bottom: 10px;
-    background-size: 100%;
+    /* background-size: 100%; */
     text-transform: uppercase;
 }
+.buttons-angle-head{
+    display: flex;
+   justify-content: right;
+   /* background-image: url('../assets/images/bcci_desktop_ground.jpeg'); */
+    background-position: bottom;
+    background-size: 70%;
+    padding: 5px 10px;
+}
+.buttons-angle{
+    display: flex;
+    padding: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 5px;
+}
+.buttons-angle .anglechange{
+    color:#fff;
+    background-color: #050A5C;
+    text-align: center;
+    line-height: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    width: 90px;
+    cursor: pointer;
+    margin-right: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+.buttons-angle .anglechange:last-child{
+    margin-right: 0;
+}
+.buttons-angle .anglechange.active{
+    background-color: #FF2100;
+}
 @media screen and  (max-width: 767px){
-    .forMydesk,
     .graphFooter{
         width: 100%;
     }
@@ -196,9 +232,6 @@ figure .textBallInfo{
         box-shadow: none;
         margin: 5px 5px;
         line-height: 23px;
-    }
-    .forMydesk{
-        padding-top: 2px;
     }
     #cmFilters .innigfilt,
     #cmFilters .bowlfilt,
@@ -230,5 +263,32 @@ figure .textBallInfo{
     .appfilt{
         margin: 0;
         margin-top: 15px;
+    }
+    .buttons-angle-head{
+        background-image: none;
+        justify-content: center;
+        padding: 5px 0px;
+    }
+    .buttons-angle{
+        background: none;
+        backdrop-filter: none;
+        border-radius: 0;
+        width: 100%;
+        justify-content: space-evenly;
+    }
+    .buttons-angle .anglechange{
+        background-color: #fff;
+        color: #050A5C;
+        border: 1px solid #050A5C;
+        border-radius: 5px; 
+        box-shadow: none;
+        width: 30%;
+        font-weight: 600;
+    }
+    .buttons-angle .anglechange.active{
+        color: #fff;
+        background: #FF2100;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border: none;
     }
 }

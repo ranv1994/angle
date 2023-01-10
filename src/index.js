@@ -30,7 +30,7 @@ const textureLoader = new THREE.TextureLoader();
 let ballsTogether = false;
 let balls = [];
 let indexBall = 0;
-const velocity = 19;
+const velocity = 9;
 
 function createTrajectory (data, ballMesh, ballsTogether) {
     const trajectoryData = data.match.delivery.trajectory; 
@@ -46,7 +46,12 @@ function createTrajectory (data, ballMesh, ballsTogether) {
     //better use stumpPosition
     const releasePosition = trajectoryData.releasePosition;
     const bouncePosition = trajectoryData.bouncePosition;
-    const creasePosition = trajectoryData.stumpPosition; 
+    const creasePosition = trajectoryData.stumpPosition;
+    let myX = -10.06 + bouncePosition.x;
+    if(bouncePosition.x < 0){
+        myX = -(10.06 + bouncePosition.x);
+    }
+    bouncePosition.x = myX ;
     //const creasePosition = trajectoryData.creasePosition; 
     const vecRelease = new THREE.Vector3(releasePosition.x, releasePosition.z, releasePosition.y);
     const vecBounce = new THREE.Vector3(bouncePosition.x , bouncePosition.z, bouncePosition.y);
@@ -99,32 +104,32 @@ window.playTheseBalls = async function (ballsTogetherBoolean, data1, data2, data
     window.resetA();
     ballsTogether = ballsTogetherBoolean;
     if (data1) {
-       trajectoryBall1 = await import("../public/"+data1+".json");
+       trajectoryBall1 = data1;//await import("../public/"+data1+".json");
        balls.push({ball: null, line: null, animation: 0, countDrawn: 0, directions: [], render: false, colorLine: 0xff0000});
        createTrajectory(trajectoryBall1, balls[0], ballsTogetherBoolean);
     };
     if (data2) {
-        trajectoryBall2 = await import("../public/"+data2+".json");
+        trajectoryBall2 = data2;//await import("../public/"+data2+".json");
         balls.push({ball: null, line: null, animation: 0, countDrawn: 0, directions: [], render: false, colorLine: 0x2def33});
         createTrajectory(trajectoryBall2, balls[1], ballsTogetherBoolean);
     };
     if (data3) {
-        trajectoryBall3 = await import("../public/"+data3+".json");
+        trajectoryBall3 = data3;//await import("../public/"+data3+".json");
         balls.push({ball: null, line: null, animation: 0, countDrawn: 0, directions: [], render: false, colorLine: 0xffe604});
         createTrajectory(trajectoryBall3, balls[2], ballsTogetherBoolean);
     };
     if (data4) {
-        trajectoryBall4 = await import("../public/"+data3+".json");
+        trajectoryBall4 = data4;//await import("../public/"+data3+".json");
         balls.push({ball: null, line: null, animation: 0, countDrawn: 0, directions: [], render: false, colorLine: 0x2018ff});
         createTrajectory(trajectoryBall4, balls[3], ballsTogetherBoolean);
     };
     if (data5) {
-        trajectoryBall5 = await import("../public/"+data3+".json");
+        trajectoryBall5 = data5;//await import("../public/"+data3+".json");
         balls.push({ball: null, line: null, animation: 0, countDrawn: 0, directions: [], render: false, colorLine: 0xff7c18});
         createTrajectory(trajectoryBall5, balls[4], ballsTogetherBoolean);
     };
     if (data6) {
-        trajectoryBall6 = await import("../public/"+data3+".json");
+        trajectoryBall6 = data6;//await import("../public/"+data3+".json");
         balls.push({ball: null, line: null, animation: 0, countDrawn: 0, directions: [], render: false, colorLine: 0xff186d});
         createTrajectory(trajectoryBall6, balls[5], ballsTogetherBoolean);
     };
@@ -251,12 +256,12 @@ const wicketsMaterial = new THREE.MeshBasicMaterial({
 });
 const wickets = new THREE.Mesh(wicketsGeometry, wicketsMaterial);
 wickets.rotateOnAxis( new THREE.Vector3( 0, 1, 0  ), THREE.MathUtils.degToRad(270) );
-wickets.position.set(-10.03, 0.9, 0);
+wickets.position.set(-10.03, 0.6, 0);
 scene.add(wickets);
 
 const wickets2 = new THREE.Mesh(wicketsGeometry, wicketsMaterial);
 wickets2.rotateOnAxis( new THREE.Vector3( 0, 1, 0  ), THREE.MathUtils.degToRad(90) );
-wickets2.position.set(10.03, 0.9, 0);
+wickets2.position.set(10.03, 0.6, 0);
 scene.add(wickets2);
 
 
@@ -408,7 +413,348 @@ function animate() {
     renderer.render(scene, camera);
 }
 
-renderer.setAnimationLoop(animate);
+setTimeout(function(){
+    renderer.setAnimationLoop(animate);
+},200)
 
-playTheseBalls(true, "demo1", "demo2"); 
 
+//setView("bowler");
+//playTheseBalls(false, "demo1", "demo1", "demo1", "demo1", "demo1", "demo1"); 
+
+
+
+//code by Ranveer for next changes
+var APP_URL = 'http://localhost/widget_entity/'
+let mToken = 'e9a8cd857f01e5f88127787d3931b63a';
+var innings = [];
+var CurrentBallD = {};
+var IningData = [];
+IningData[0] = {};
+let mParam = new URLSearchParams(window.location.search);
+function setAllFilters(eid,matchId){
+    let url = "https://rest.entitysport.com/v2/matches/"+eid+"/innings/info?token="+mToken;
+    let api_request = httpGetAsyncEntity(url);
+        if(api_request.status == 'ok'){
+            innings = api_request.response.innings;
+			let inning_number = api_request.response.innings[0].number;
+			let url2 = "https://rest.entitysport.com/v2/matches/"+eid+"/innings/"+inning_number+"/commentary?actualball=1&token="+mToken;
+			let api_request2 = httpGetAsyncEntity(url2);
+                if(api_request2.status == 'ok'){
+                    IningData[0] = api_request2.response;
+                    //let filepath = 'https://post-feeds.s3.ap-south-1.amazonaws.com/Delivery_1_19_1_'+matchId+'.json';
+                    //CurrentBallD = httpGetAsyncEntity(APP_URL+'welcome/get_data?path='+filepath);
+                    //playTheseBalls(false, CurrentBallD);
+                    restFilters();
+                    for(var i in innings){
+                        if(i!=0){
+                            let url5 = "https://rest.entitysport.com/v2/matches/"+eid+"/innings/"+innings[i].number+"/commentary?actualball=1&token="+mToken;
+                            let api_request3 = httpGetAsyncEntity(url5);
+                            IningData[i] = api_request3.response;
+                        }
+                    }
+                }
+        }
+}
+window.changeView = function (e,view){
+    var rl = document.querySelectorAll('.anglechange.active');
+    if(!e.classList.contains('active')){
+        e.classList.add('active');
+        rl[0].classList.remove('active');
+    }
+    setView(view);
+};
+var our_matchID = mParam.get('entity_matchId');
+var matchId = mParam.get('matchId');
+var baseDire = 'https://post-feeds.s3.ap-south-1.amazonaws.com/';
+let myinnings = document.querySelector('.myinnings');
+let mybowler = document.querySelector('.mybowler');
+let mybatsman = document.querySelector('.mybatsman');
+let myover = document.querySelector('.myover');
+let myballs = document.querySelector('.myballs');
+let mywickets = document.querySelector('.mywickets');
+myinnings.addEventListener('change', function () {
+    let currInn = {};
+    let currInnover = 0;
+    
+    for(var i in IningData){
+        if(this.value == IningData[i].inning.number){
+            currInn = IningData[i];
+        }
+    }
+    for(var i in innings){
+        if(this.value == innings[i].number){
+            currInnover = innings[i].overs;
+            if(currInnover.indexOf(".") != -1){
+                currInnover = parseInt(currInnover) +1;
+            }
+        }
+    }
+    let content_bats = '<option value="">Any Batsmen</option>';
+    for(var i in currInn.inning.batsmen){
+        let b = currInn.inning.batsmen[i];
+        content_bats += '<option value="'+b.batsman_id+'">'+b.name+'</option>';
+    }
+    mybatsman.innerHTML  = content_bats;
+
+    let content_bowlers = '<option value="">Any Bowlers</option>';
+    for(var i in currInn.inning.bowlers){
+        let b = currInn.inning.bowlers[i];
+        content_bowlers += '<option value="'+b.bowler_id+'">'+b.name+'</option>';
+    }
+    mybowler.innerHTML  = content_bowlers;
+
+    let content_overs = '';
+    for(var i =1;i<=currInnover;i++){
+        content_overs += '<option value="'+i+'">'+i+'</option>';
+    }
+    myover.innerHTML  = content_overs;
+
+    let content_balls = '';
+    for(var i =1;i<=6;i++){
+        content_balls += '<option value="'+i+'">'+i+'</option>';
+    }
+    content_balls += '<option value="all">All Balls</option>';
+    myballs.innerHTML  = content_balls;
+
+    let content_wickets = '<option value="">All Wickets</option>';
+    for(var i in currInn.commentaries){
+        if(currInn.commentaries[i].event == 'wicket'){
+            let p = ckt_find_player(currInn.commentaries[i].batsman_id,currInn.players);
+            content_wickets += '<option value="Delivery_'+(this.value)+'_'+(parseInt(currInn.commentaries[i].over)+1)+'_'+currInn.commentaries[i].xball+'_'+matchId+'.json">'+p.title+', '+currInn.commentaries[i].how_out+'</option>';
+        }
+    }
+    mywickets.innerHTML  = content_wickets;
+    callTheBallAfterChange()
+});
+
+function restFilters() {
+    var event = new CustomEvent("change", { "detail": "Example of an event" });
+    let content_inns = '';
+    for(var i in innings){
+        content_inns += '<option value="'+innings[i].number+'">'+innings[i].title+'</option>';
+    }
+    myinnings.innerHTML  = content_inns;
+    myinnings.dispatchEvent(event);
+}
+function ckt_find_player( id, players ) {
+	for( var i=0; i<players.length; i++ ) {
+		if( players[i]['pid'] == id || players[i]['player_id'] == id ) {
+			return players[i];
+		}
+	}
+	return false;
+}
+mybatsman.addEventListener('change', function () {
+    let overs = {};
+    let batsD = this.value;
+    let bowlD = mybowler.value;
+    let currInn = {};
+    for(var i in IningData){
+        if(myinnings.value == IningData[i].inning.number){
+            currInn = IningData[i];
+        }
+    }
+    let batsmens_bawler = [];
+    for(var i in currInn.commentaries){
+        if(currInn.commentaries[i].event != 'overend' && currInn.commentaries[i].batsman_id == batsD){
+            batsmens_bawler.push(''+currInn.commentaries[i].bowler_id+'');
+        }
+    }
+    let uniqueItems = [...new Set(batsmens_bawler)];
+    let content_bowlers = '';
+    for(var i in currInn.inning.bowlers){
+        let b = currInn.inning.bowlers[i];
+        if(uniqueItems.includes(b.bowler_id)){
+            content_bowlers += '<option value="'+b.bowler_id+'">'+b.name+'</option>';
+        }
+    }
+    mybowler.innerHTML  = content_bowlers;
+    if(bowlD != ''){
+        mybowler.value = bowlD;
+    }else{
+        bowlD = mybowler.value;
+    }
+    
+    for(var i in currInn.commentaries){
+        if(bowlD == ''){
+            if(currInn.commentaries[i].event != 'overend' && currInn.commentaries[i].batsman_id == batsD){
+                if(overs['key_'+currInn.commentaries[i].over]){
+                    overs['key_'+currInn.commentaries[i].over].push(currInn.commentaries[i].xball);
+                }else{
+                    overs['key_'+currInn.commentaries[i].over] = [currInn.commentaries[i].xball];
+                }
+            }
+        }else{
+            if(currInn.commentaries[i].event != 'overend' && currInn.commentaries[i].batsman_id == batsD && currInn.commentaries[i].bowler_id == bowlD){
+                if(overs['key_'+currInn.commentaries[i].over]){
+                    overs['key_'+currInn.commentaries[i].over].push(currInn.commentaries[i].xball);
+                }else{
+                    overs['key_'+currInn.commentaries[i].over] = [currInn.commentaries[i].xball];
+                }
+            }
+        }
+    }
+    
+    let content_overs = '';
+    for(var i in overs){
+        content_overs += '<option value="'+(parseInt(i.replace('key_',''))+1)+'">'+(parseInt(i.replace('key_',''))+1)+'</option>';
+    }
+    myover.innerHTML  = content_overs;
+    let first_ov = Object.values(overs)[0];
+    let content_balls = '';
+    for(var i in first_ov){
+        content_balls += '<option value="'+first_ov[i]+'">'+first_ov[i]+'</option>';
+    }
+    content_balls += '<option value="all">All Balls</option>';
+    myballs.innerHTML  = content_balls;
+    callTheBallAfterChange()
+});
+
+mybowler.addEventListener('change', function () {
+    let overs = {};
+    let bowlerD = this.value;
+    let betD = mybatsman.value;
+    let currInn = {};
+    for(var i in IningData){
+        if(myinnings.value == IningData[i].inning.number){
+            currInn = IningData[i];
+        }
+    }
+    let bawler_batsmens = [];
+    for(var i in currInn.commentaries){
+        if(currInn.commentaries[i].event != 'overend' && currInn.commentaries[i].bowler_id == bowlerD){
+            bawler_batsmens.push(''+currInn.commentaries[i].batsman_id+'');
+        }
+    }
+    let uniqueItems = [...new Set(bawler_batsmens)];
+    let content_bats = '';
+    for(var i in currInn.inning.batsmen){
+        let b = currInn.inning.batsmen[i];
+        if(uniqueItems.includes(b.batsman_id)){
+            content_bats += '<option value="'+b.batsman_id+'">'+b.name+'</option>';
+        }
+    }
+    mybatsman.innerHTML  = content_bats;
+
+    if(betD != ''){
+        mybatsman.value = betD;
+    }else{
+        betD = mybatsman.value;
+    }
+    
+    for(var i in currInn.commentaries){
+        if(betD == ''){
+            if(currInn.commentaries[i].event != 'overend' && currInn.commentaries[i].bowler_id == bowlerD){
+                if(overs['key_'+currInn.commentaries[i].over]){
+                    overs['key_'+currInn.commentaries[i].over].push(currInn.commentaries[i].xball);
+                }else{
+                    overs['key_'+currInn.commentaries[i].over] = [currInn.commentaries[i].xball];
+                }
+            }
+        }else{
+            if(currInn.commentaries[i].event != 'overend' && currInn.commentaries[i].bowler_id == bowlerD && currInn.commentaries[i].batsman_id == betD){
+                if(overs['key_'+currInn.commentaries[i].over]){
+                    overs['key_'+currInn.commentaries[i].over].push(currInn.commentaries[i].xball);
+                }else{
+                    overs['key_'+currInn.commentaries[i].over] = [currInn.commentaries[i].xball];
+                }
+            }
+        }
+    }
+    
+    let content_overs = '';
+    for(var i in overs){
+        content_overs += '<option value="'+(parseInt(i.replace('key_',''))+1)+'">'+(parseInt(i.replace('key_',''))+1)+'</option>';
+    }
+    myover.innerHTML  = content_overs;
+    let first_ov = Object.values(overs)[0];
+    let content_balls = '';
+    for(var i in first_ov){
+        content_balls += '<option value="'+first_ov[i]+'">'+first_ov[i]+'</option>';
+    }
+    content_balls += '<option value="all">All Balls</option>';
+    myballs.innerHTML  = content_balls;
+    callTheBallAfterChange()
+});
+
+myover.addEventListener('change', function () {
+    let balls = [];
+    let balls2 = [];
+    let currentover = parseInt(this.value);
+    let batsmen = mybatsman.value;
+    let mytypeover = currentover - 1;
+    let currInn = {};
+    for(var i in IningData){
+        if(myinnings.value == IningData[i].inning.number){
+            currInn = IningData[i];
+        }
+    }
+    for(var i in currInn.commentaries){
+        if(currInn.commentaries[i].event != 'overend' && currInn.commentaries[i].over == mytypeover){
+            if(batsmen != '' && currInn.commentaries[i].batsman_id == batsmen){
+                balls2.push(currInn.commentaries[i].xball);
+            }else{
+                balls.push(currInn.commentaries[i].xball);
+            }
+        }
+    }
+    let content_balls = '';
+    if(balls2.length > 0){
+        balls = balls2;
+    }
+    for(var i in balls){
+        content_balls += '<option value="'+balls[i]+'">'+balls[i]+'</option>';
+    }
+    content_balls += '<option value="all">All Balls</option>';
+    myballs.innerHTML  = content_balls;
+    callTheBallAfterChange()
+});
+
+myballs.addEventListener('change', function () {
+    let balls = this.value;
+    if(balls != 'all'){
+        ballsTogether = false;
+        callTheBallAfterChange();
+    }else{
+        ballsTogether = true;
+        var options = myballs.options;
+        let in_id = myinnings.value;
+        let bowl_id = mybowler.value;
+        let over_id = myover.value;
+        let ballData = [];
+        for (let i = 0; i < options.length; i++) {
+            if(options[i].value != 'all'){
+                let StrName = 'Delivery_'+in_id+'_'+over_id+'_'+(options[i].value)+'_'+matchId+'.json';
+                let filePath = baseDire+StrName;
+                ballData[i] = httpGetAsyncEntity(APP_URL+"welcome/get_data?path="+filePath);
+            }
+        }
+        playTheseBalls(false,ballData[0],ballData[1],ballData[2],ballData[3],ballData[4],ballData[5])
+    }
+});
+
+mywickets.addEventListener('change', function () {
+    let filePath = baseDire+this.value;
+    var ballData = httpGetAsyncEntity(APP_URL+"welcome/get_data?path="+filePath);
+    playTheseBalls(false,ballData);
+});
+
+function callTheBallAfterChange()
+{
+    mywickets.value = "";
+    let in_id = myinnings.value;
+    let bowl_id = mybowler.value;
+    let over_id = myover.value;
+    let ball_id = myballs.value;
+    let StrName = 'Delivery_'+in_id+'_'+over_id+'_'+ball_id+'_'+matchId+'.json';
+    let filePath = baseDire+StrName;
+    var ballData = httpGetAsyncEntity(APP_URL+"welcome/get_data?path="+filePath);
+    playTheseBalls(false,ballData);
+}
+function httpGetAsyncEntity(theUrl){
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send();
+    return JSON.parse(xmlHttp.responseText);
+}
+setAllFilters(mParam.get('entity_matchId'),mParam.get('matchId'));

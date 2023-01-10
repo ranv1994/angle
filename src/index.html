@@ -25,6 +25,54 @@
         <div class="views-container">
 
         </div>
+        <div class="graphFooter">
+            <div class="buttons-angle-head">
+                <div class="buttons-angle">
+                    <div class="anglechange active" onclick="changeView(this,'stumps');" data-change="front">Stumps</div>
+                    <div class="anglechange" onclick="changeView(this,'bowler');" data-change="back">Bowler</div>
+                    <div class="anglechange" onclick="changeView(this,'slip');" data-change="sideLeft">Slip</div>       
+                </div>
+            </div>
+            <p class="headline-filter">All Balls</p>
+            <div id="cmFilters">
+                <div class="innigfilt">
+                    <label>Innings</label>
+                    <select class="changeFilt myinnings">
+                    </select>
+                </div>
+                <div class="batsfilt">
+                    <label>Batsman</label>
+                    <select class="changeFilt mybatsman">
+                        <option value="">Any Batsmen</option>
+                    </select>
+                </div>
+                <div class="bowlfilt">
+                    <label>Bowlers</label>
+                    <select class="changeFilt mybowler">
+                        <option value="">Any Bowlers</option>
+                    </select>
+                </div>
+                <div class="overfilt">
+                    <label>Overs</label>
+                    <select class="changeFilt myover">
+                    </select>
+                </div>
+                <div class="ballfilt">
+                    <label>Balls</label>
+                    <select class="changeFilt myballs">
+                    </select>
+                </div>
+                <div class="wicketfilt">
+                    <label>Wicket</label>
+                    <select class="changeFilt mywickets">
+                        <option value="">All Wickets</option>
+                    </select>
+                </div>
+            </div>
+            <div class="appfilt">
+                <a class="" onclick="restFilters()">Reset</a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

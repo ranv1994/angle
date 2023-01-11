@@ -2,19 +2,20 @@
 
 body, 
 html {
-    margin: 0;
     padding: 0;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
 }
 
 .container {
     position: relative;
     width: 100%;
-    height: 70vh;
+    height: 100vh;
 }
 
 .three-container {
     position: absolute;
-    height: 70vh;
     width: 100%;
 }
 
@@ -96,15 +97,12 @@ html {
     width: 100%;
     background: #fff;
     position: absolute;
-    bottom: -250px;
+    bottom: 0px;
 }
 #cmFilters{
     display: flex;
     flex-wrap: wrap;
     margin: 0 6%;
-}
-.headline-filter{
-    text-align: center;
 }
 #cmFilters .innigfilt,
 #cmFilters .bowlfilt,
@@ -156,18 +154,18 @@ html {
     margin: 0 7%;
     margin-top: 15px;
 }
-figure p{
+.graphFooter p{
     margin-top: 15px;
     margin-bottom: 0;
     font-weight: 700;
     margin-left: 7%;
     font-size: 18px;
 }
-figure label{
+.graphFooter label{
     color: #FF2100;
     font-weight: 700;
 }
-figure .textBallInfo{
+.textBallInfo{
     margin: 8px 0;
     color: #fff;
     text-align: center;
@@ -189,10 +187,11 @@ figure .textBallInfo{
 .buttons-angle-head{
     display: flex;
    justify-content: right;
-   /* background-image: url('../assets/images/bcci_desktop_ground.jpeg'); */
+   /* background-image: url('../public/bcci_desktop_ground.jpeg'); */
     background-position: bottom;
     background-size: 70%;
     padding: 5px 10px;
+    margin-top: -50px;
 }
 .buttons-angle{
     display: flex;
@@ -224,7 +223,7 @@ figure .textBallInfo{
     .graphFooter{
         width: 100%;
     }
-    figure .textBallInfo{
+    .textBallInfo{
         line-height: 20px;
         padding: 5px 5px;
         font-size: 18px;
@@ -246,10 +245,10 @@ figure .textBallInfo{
         border-radius: 5px;
         font-size: 16px;
     }
-    figure label{
+    .graphFooter label{
         font-size: 14px;
     }
-    figure p{
+    .graphFooter p{
         margin-left: 12px;
         font-size: 18px;
         margin-top: 2px;

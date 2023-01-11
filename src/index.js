@@ -9,9 +9,9 @@ import trajectoryBall3 from '../public/demo1.json';
 import trajectoryBall4 from '../public/demo1.json';
 import trajectoryBall5 from '../public/demo1.json';
 import trajectoryBall6 from '../public/demo1.json';
-import bowlerUrl from '../public/bowler.png';
-import stumpsUrl from '../public/stumps.png';
-import slipUrl from '../public/slip.png';
+// import bowlerUrl from '../public/bowler.png';
+// import stumpsUrl from '../public/stumps.png';
+// import slipUrl from '../public/slip.png';
 import wicketsUrl from '../public/adWickets.png';
 import gsap from 'gsap';
 import { MeshLine, MeshLineMaterial } from 'three.meshline';
@@ -104,6 +104,8 @@ window.playTheseBalls = async function (ballsTogetherBoolean, data1, data2, data
     window.resetA();
     ballsTogether = ballsTogetherBoolean;
     if (data1) {
+        let myText = (data1.match.delivery.deliveryNumber.over - 1)+'.'+data1.match.delivery.deliveryNumber.ball+' '+(data1.match.bowlingTeam.bowler.name.toLowerCase())+' to '+(data1.match.battingTeam.batsman.name.toLowerCase())+', '+((data1.match.delivery.trajectory.releaseSpeed * 1.60934).toFixed(1))+' km/h, '+((data1.match.delivery.scoringInformation.wicket.isWicket)?'wicket':data1.match.delivery.scoringInformation.score+' run');
+        textBallInfo.innerHTML = myText;
        trajectoryBall1 = data1;//await import("../public/"+data1+".json");
        balls.push({ball: null, line: null, animation: 0, countDrawn: 0, directions: [], render: false, colorLine: 0xff0000});
        createTrajectory(trajectoryBall1, balls[0], ballsTogetherBoolean);
@@ -153,7 +155,7 @@ const renderer = new THREE.WebGL1Renderer({
     antialias: true
 });
 renderer.setClearColor(0x000000, 0);
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(window.innerWidth, window.innerHeight-200);
 container.appendChild(renderer.domElement);
 
 
@@ -273,45 +275,45 @@ scene.add(plane);
 plane.position.set(0, -0.05, 0);
 
 
-const containerReset = document.querySelector('.container-reset');
+const containerReset = document.querySelector('.restart-filter');
 containerReset.addEventListener('click', resetAnimation);
 
-const containerViews = document.querySelector('.views-container');
-const viewButton = document.querySelector('.container-view');
-let isViews = false;
-const divViews = document.createElement('div');
-divViews.className = 'views';
-const divBowler = document.createElement('div');
-divBowler.className = 'bowler-view';
-const imgBowler = document.createElement('img');
-imgBowler.className = 'view-image';
-imgBowler.src = bowlerUrl;
-divBowler.appendChild(imgBowler);
-const divSlip = document.createElement('div');
-divSlip.className = 'slip-view';
-const imgSlip = document.createElement('img');
-imgSlip.className = 'view-image';
-imgSlip.src = slipUrl;
-divSlip.appendChild(imgSlip);
-const divStupm = document.createElement('div');
-divStupm.className = 'stumps-view';
-const imgStumps = document.createElement('img');
-imgStumps.className = 'view-image';
-imgStumps.src = stumpsUrl;
-divStupm.appendChild(imgStumps);
+// const containerViews = document.querySelector('.views-container');
+// const viewButton = document.querySelector('.container-view');
+// let isViews = false;
+// const divViews = document.createElement('div');
+// divViews.className = 'views';
+// const divBowler = document.createElement('div');
+// divBowler.className = 'bowler-view';
+// const imgBowler = document.createElement('img');
+// imgBowler.className = 'view-image';
+// imgBowler.src = bowlerUrl;
+// divBowler.appendChild(imgBowler);
+// const divSlip = document.createElement('div');
+// divSlip.className = 'slip-view';
+// const imgSlip = document.createElement('img');
+// imgSlip.className = 'view-image';
+// imgSlip.src = slipUrl;
+// divSlip.appendChild(imgSlip);
+// const divStupm = document.createElement('div');
+// divStupm.className = 'stumps-view';
+// const imgStumps = document.createElement('img');
+// imgStumps.className = 'view-image';
+// imgStumps.src = stumpsUrl;
+// divStupm.appendChild(imgStumps);
 
-divViews.appendChild(divBowler);
-divViews.appendChild(divSlip);
-divViews.appendChild(divStupm);
+// divViews.appendChild(divBowler);
+// divViews.appendChild(divSlip);
+// divViews.appendChild(divStupm);
 
-viewButton.addEventListener('click', () => {
-    isViews = !isViews;
-    if (isViews) {
-        containerViews.appendChild(divViews);
-    } else {
-        containerViews.removeChild(divViews);
-    }
-});
+// viewButton.addEventListener('click', () => {
+//     isViews = !isViews;
+//     if (isViews) {
+//         containerViews.appendChild(divViews);
+//     } else {
+//         containerViews.removeChild(divViews);
+//     }
+// });
 
 
 window.setView = function (viewSet) {
@@ -350,19 +352,6 @@ window.setView = function (viewSet) {
         });
     }
 }
-
-
-divBowler.addEventListener('click', () => {
-    setView("bowler"); 
-});
-
-divSlip.addEventListener('click', () => {
-    setView("slip"); 
-});
-
-divStupm.addEventListener('click', () => {
-    setView("stumps");
-});
 
 function animateBall (ball) {
     if (ball.animation < ball.directions.length) {
@@ -472,6 +461,7 @@ let mybatsman = document.querySelector('.mybatsman');
 let myover = document.querySelector('.myover');
 let myballs = document.querySelector('.myballs');
 let mywickets = document.querySelector('.mywickets');
+var textBallInfo = document.querySelector('.textBallInfo');
 myinnings.addEventListener('change', function () {
     let currInn = {};
     let currInnover = 0;

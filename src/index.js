@@ -413,7 +413,8 @@ setTimeout(function(){
 
 
 //code by Ranveer for next changes
-var APP_URL = 'http://localhost/widget_entity/'
+var APP_URL = 'https://polls.iplt20.com/widget/welcome/get_data?path=';
+//var APP_URL = 'http://localhost/widget_entity/welcome/get_data?path=';
 let mToken = 'e9a8cd857f01e5f88127787d3931b63a';
 var innings = [];
 var CurrentBallD = {};
@@ -426,13 +427,10 @@ function setAllFilters(eid,matchId){
         if(api_request.status == 'ok'){
             innings = api_request.response.innings;
 			let inning_number = api_request.response.innings[0].number;
-			let url2 = "https://rest.entitysport.com/v2/matches/"+eid+"/innings/"+inning_number+"/commentary?actualball=1&token="+mToken;
+			let url2 = "https://rest.entitysport.com/v2/matches/"+eid+"/innings/"+inning_number+"/commentary??token="+mToken+"&actualball=1";
 			let api_request2 = httpGetAsyncEntity(url2);
                 if(api_request2.status == 'ok'){
                     IningData[0] = api_request2.response;
-                    //let filepath = 'https://post-feeds.s3.ap-south-1.amazonaws.com/Delivery_1_19_1_'+matchId+'.json';
-                    //CurrentBallD = httpGetAsyncEntity(APP_URL+'welcome/get_data?path='+filepath);
-                    //playTheseBalls(false, CurrentBallD);
                     restFilters();
                     for(var i in innings){
                         if(i!=0){
@@ -716,7 +714,7 @@ myballs.addEventListener('change', function () {
             if(options[i].value != 'all'){
                 let StrName = 'Delivery_'+in_id+'_'+over_id+'_'+(options[i].value)+'_'+matchId+'.json';
                 let filePath = baseDire+StrName;
-                ballData[i] = httpGetAsyncEntity(APP_URL+"welcome/get_data?path="+filePath);
+                ballData[i] = httpGetAsyncEntity(filePath);
             }
         }
         playTheseBalls(false,ballData[0],ballData[1],ballData[2],ballData[3],ballData[4],ballData[5])
@@ -725,7 +723,7 @@ myballs.addEventListener('change', function () {
 
 mywickets.addEventListener('change', function () {
     let filePath = baseDire+this.value;
-    var ballData = httpGetAsyncEntity(APP_URL+"welcome/get_data?path="+filePath);
+    var ballData = httpGetAsyncEntity(filePath);
     playTheseBalls(false,ballData);
 });
 
@@ -738,10 +736,11 @@ function callTheBallAfterChange()
     let ball_id = myballs.value;
     let StrName = 'Delivery_'+in_id+'_'+over_id+'_'+ball_id+'_'+matchId+'.json';
     let filePath = baseDire+StrName;
-    var ballData = httpGetAsyncEntity(APP_URL+"welcome/get_data?path="+filePath);
+    var ballData = httpGetAsyncEntity(filePath);
     playTheseBalls(false,ballData);
 }
 function httpGetAsyncEntity(theUrl){
+    theUrl = APP_URL+theUrl;
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
     xmlHttp.send();

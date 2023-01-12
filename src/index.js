@@ -427,7 +427,7 @@ function setAllFilters(eid,matchId){
         if(api_request.status == 'ok'){
             innings = api_request.response.innings;
 			let inning_number = api_request.response.innings[0].number;
-			let url2 = "https://rest.entitysport.com/v2/matches/"+eid+"/innings/"+inning_number+"/commentary??token="+mToken+"&actualball=1";
+			let url2 = "https://rest.entitysport.com/v2/matches/"+eid+"/innings/"+inning_number+"/commentary?token="+mToken+"&actualball=1";
 			let api_request2 = httpGetAsyncEntity(url2);
                 if(api_request2.status == 'ok'){
                     IningData[0] = api_request2.response;

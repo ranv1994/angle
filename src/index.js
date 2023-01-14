@@ -18,9 +18,9 @@ import { MeshLine, MeshLineMaterial } from 'three.meshline';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import './index.css';
 
-const bowlerCoords = [12.3, 2.4, 0];
+const bowlerCoords = [10.3, 2.4, 0];
 const slipCoords = [-12.5, 1.5, 3];
-const stumpsCoords = [-15, 3.5, 0];
+const stumpsCoords = [-16, 3.5, 0];
 
 function getControlPoint (p1, p2) {
     return (1-.5) * p1 + (.5) * p2;

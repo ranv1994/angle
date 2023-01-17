@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import ballUrl from '../public/ball-uv.png';
 import floorURl from '../public/piso.png';
-import field1Url from '../public/pitch.png';
+import field1Url from '../public/frame.png';
 import stadiumUrl from '../public/Estadio03.png';
 import trajectoryBall1 from '../public/demo1.json';
 import trajectoryBall2 from '../public/demo1.json';

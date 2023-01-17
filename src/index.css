@@ -129,7 +129,7 @@ html {
     font-size: 16px;
     background: #fff;
     appearance: none;
-    /* background-image: url('../assets/images/selectbox_arrow.svg'); */
+    background-image: url('../public/selectbox_arrow.svg');
     background-repeat: no-repeat;
     background-position-x: 96%;
     background-position-y: 10px;

@@ -18,9 +18,13 @@ import { MeshLine, MeshLineMaterial } from 'three.meshline';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import './index.css';
 
+const isMobile = window.innerWidth<500?true:false;
 const bowlerCoords = [10.3, 2.4, 0];
-const slipCoords = [-12.5, 1.5, 3];
+let slipCoords = [-12.5, 1.5, 3];
 const stumpsCoords = [-16, 3.5, 0];
+if(isMobile){
+    slipCoords = [-12.5, 1.5, 0.7];
+}
 
 function getControlPoint (p1, p2) {
     return (1-.5) * p1 + (.5) * p2;
@@ -154,8 +158,9 @@ camera.lookAt(new THREE.Vector3(0, 0, 0));
 const renderer = new THREE.WebGL1Renderer({
     antialias: true
 });
+
 renderer.setClearColor(0x000000, 0);
-renderer.setSize(window.innerWidth, window.innerHeight-200);
+renderer.setSize(window.innerWidth, !isMobile?(window.innerHeight-200):(window.innerHeight-480));
 container.appendChild(renderer.domElement);
 
 

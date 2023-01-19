@@ -291,10 +291,13 @@ html {
         border: none;
     }
     .graphFooter{
-        bottom: -200px;
+        bottom: -270px;
     }
     .graphFooter p{
         text-align: center;
         padding-top: 10px;
+    }
+    .buttons-angle-head{
+        margin-top: 0;
     }
 }

@@ -24,7 +24,7 @@ let slipCoords = [-12.5, 1.5, 2];
 const stumpsCoords = [-16, 5, 0]; 
 
 if(isMobile){
-    slipCoords = [-12.5, 1.5, 0.7];
+    slipCoords = [-12.5, 1.5, 0.2];
 }
 
 function getControlPoint (p1, p2) {
@@ -289,7 +289,7 @@ scene.add(wickets2);
 
 
 var geo = new THREE.PlaneBufferGeometry(20, 0.5);
-var mat = new THREE.MeshBasicMaterial({ color: 0x9999ff, transparent: true, opacity: 0.3, side: THREE.DoubleSide });
+var mat = new THREE.MeshBasicMaterial({ color: 0x9999ff, transparent: true, opacity: 0.15, side: THREE.DoubleSide });
 var plane = new THREE.Mesh(geo, mat);
 plane.rotateX( - Math.PI / 2);
 scene.add(plane);

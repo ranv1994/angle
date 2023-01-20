@@ -248,7 +248,7 @@ const material = new THREE.MeshBasicMaterial({
 });
 
 const backImg = textureLoader.load(stadiumUrl);
-const backGeometry = new THREE.PlaneGeometry(200, 30);
+const backGeometry = new THREE.PlaneGeometry(170, 30);
 const backMaterial = new THREE.MeshBasicMaterial({
     side: THREE.DoubleSide,
     transparent: true,

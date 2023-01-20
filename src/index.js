@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import ballUrl from '../public/ball-uv.png';
 import floorURl from '../public/piso.png';
 import field1Url from '../public/pitch.png';
-import stadiumUrl from '../public/Estadio03.png';
+import stadiumUrl from '../public/Estadio033.png';
 import trajectoryBall1 from '../public/demo1.json';
 import trajectoryBall2 from '../public/demo1.json';
 import trajectoryBall3 from '../public/demo1.json';
@@ -19,9 +19,10 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import './index.css';
 
 const isMobile = window.innerWidth<500?true:false;
-const bowlerCoords = [10.3, 2.4, 0];
-let slipCoords = [-12.5, 1.5, 3];
-const stumpsCoords = [-16, 3.5, 0];
+const bowlerCoords = [10.3, 2.4, 0]; 
+let slipCoords = [-12.5, 1.5, 2]; 
+const stumpsCoords = [-16, 5, 0]; 
+
 if(isMobile){
     slipCoords = [-12.5, 1.5, 0.7];
 }
@@ -144,16 +145,15 @@ window.playTheseBalls = async function (ballsTogetherBoolean, data1, data2, data
 const container = document.querySelector('.three-container');
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xA3A3A3);
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1.1, 100);
 
 
-// Stump 
 camera.position.x = stumpsCoords[0];
 camera.position.y = stumpsCoords[1];
 camera.position.z = stumpsCoords[2];
 
+camera.lookAt(new THREE.Vector3(0, -2, 0));
 
-camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 const renderer = new THREE.WebGL1Renderer({
     antialias: true
@@ -238,6 +238,7 @@ field.rotateOnAxis( new THREE.Vector3( 1, 0, 0 ), THREE.MathUtils.degToRad(90) )
 scene.add(field);
 
 
+///////////////
 const imgStadium = textureLoader.load(stadiumUrl);
 const geometryC = new THREE.CylinderGeometry( 40, 40, 35, 32, 40, true );
 const material = new THREE.MeshBasicMaterial({
@@ -245,9 +246,24 @@ const material = new THREE.MeshBasicMaterial({
     map: imgStadium,
     transparent: true
 });
-const cylinder = new THREE.Mesh( geometryC, material );
-cylinder.position.y = 15;
-scene.add( cylinder );
+
+const backImg = textureLoader.load(stadiumUrl);
+const backGeometry = new THREE.PlaneGeometry(250, 30);
+const backMaterial = new THREE.MeshBasicMaterial({
+    side: THREE.DoubleSide,
+    transparent: true,
+    map: backImg
+});
+const backStadio = new THREE.Mesh(backGeometry, backMaterial);
+backStadio.rotateOnAxis( new THREE.Vector3( 0, 1, 0  ), THREE.MathUtils.degToRad(90) );
+backStadio.position.set(70, 11, 0);
+scene.add(backStadio);
+
+const backStadio2 = new THREE.Mesh(backGeometry, backMaterial);
+backStadio2.rotateOnAxis( new THREE.Vector3( 0, 1, 0  ), THREE.MathUtils.degToRad(270) );
+backStadio2.position.set(-70, 11, 0);
+scene.add(backStadio2);
+
 
 
 
@@ -255,16 +271,16 @@ scene.add( cylinder );
 const wicketsImg = textureLoader.load(wicketsUrl);
 const wicketsGeometry = new THREE.PlaneGeometry(0.6, 1.9);
 const wicketsMaterial = new THREE.MeshBasicMaterial({
-    //color: 0xffcc00,
     side: THREE.DoubleSide,
     transparent: true,
-    //opacity: 0.67,
     map: wicketsImg
 });
-const wickets = new THREE.Mesh(wicketsGeometry, wicketsMaterial);
-wickets.rotateOnAxis( new THREE.Vector3( 0, 1, 0  ), THREE.MathUtils.degToRad(270) );
-wickets.position.set(-10.03, 0.6, 0);
-scene.add(wickets);
+
+const wickets = new THREE.Mesh(wicketsGeometry, wicketsMaterial); 
+wickets.rotateOnAxis( new THREE.Vector3( 0, 1, 0  ), THREE.MathUtils.degToRad(270) ); 
+wickets.rotateOnAxis( new THREE.Vector3( 1, 0, 0  ), THREE.MathUtils.degToRad(-12) ); 
+wickets.position.set(-9.9, 0.6, 0); 
+scene.add(wickets); 
 
 const wickets2 = new THREE.Mesh(wicketsGeometry, wicketsMaterial);
 wickets2.rotateOnAxis( new THREE.Vector3( 0, 1, 0  ), THREE.MathUtils.degToRad(90) );
@@ -272,7 +288,7 @@ wickets2.position.set(10.03, 0.6, 0);
 scene.add(wickets2);
 
 
-var geo = new THREE.PlaneBufferGeometry(20.1, 0.5);
+var geo = new THREE.PlaneBufferGeometry(20, 0.5);
 var mat = new THREE.MeshBasicMaterial({ color: 0x9999ff, transparent: true, opacity: 0.3, side: THREE.DoubleSide });
 var plane = new THREE.Mesh(geo, mat);
 plane.rotateX( - Math.PI / 2);
@@ -330,7 +346,7 @@ window.setView = function (viewSet) {
             ease: 'power3.inOut',
             duration: 2,
             onUpdate: () => {
-                camera.lookAt(new THREE.Vector3(0, 0, 0))
+                camera.lookAt(new THREE.Vector3(0, -2, 0))
             },
         });
     } else if(viewSet == "slip") {
@@ -341,7 +357,7 @@ window.setView = function (viewSet) {
             duration: 2,
             ease: 'power3.inOut',
             onUpdate: () => {
-                camera.lookAt(new THREE.Vector3(0, 0, 0))
+                camera.lookAt(new THREE.Vector3(0, -2, 0))
             }
         });
     } else if(viewSet == "stumps") {
@@ -352,7 +368,8 @@ window.setView = function (viewSet) {
             duration: 2,
             ease: 'power3.inOut',
             onUpdate: () => {
-                camera.lookAt(new THREE.Vector3(0, 0, 0))
+                camera.lookAt(new THREE.Vector3(0, -2, 0));
+
             }
         });
     }

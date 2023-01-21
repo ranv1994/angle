@@ -160,7 +160,7 @@ const renderer = new THREE.WebGL1Renderer({
 });
 
 renderer.setClearColor(0x000000, 0);
-renderer.setSize(window.innerWidth, !isMobile?(window.innerHeight-200):(window.innerHeight-300));
+renderer.setSize(window.innerWidth-17, !isMobile?(window.innerHeight-200):(window.innerHeight-300));
 container.appendChild(renderer.domElement);
 
 

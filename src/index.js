@@ -237,16 +237,6 @@ field.position.set(0, -0.06, 0);
 field.rotateOnAxis( new THREE.Vector3( 1, 0, 0 ), THREE.MathUtils.degToRad(90) );
 scene.add(field);
 
-
-///////////////
-const imgStadium = textureLoader.load(stadiumUrl);
-const geometryC = new THREE.CylinderGeometry( 40, 40, 35, 32, 40, true );
-const material = new THREE.MeshBasicMaterial({
-    side: THREE.DoubleSide,
-    map: imgStadium,
-    transparent: true
-});
-
 const backImg = textureLoader.load(stadiumUrl);
 const backGeometry = new THREE.PlaneGeometry(165, 30);
 const backMaterial = new THREE.MeshBasicMaterial({

@@ -2,8 +2,8 @@ import * as THREE from 'three';
 import ballUrl from '../public/ball-uv.png';
 import floorURl from '../public/piso.png';
 import field1Url from '../public/pitch.png';
-import stadiumUrl from '../public/Estadio033.png';
-import trajectoryBall1 from '../public/demo1.json';
+import stadiumUrl from '../public/stadium350.png';
+import trajectoryBall1 from '../public/test.json';
 import trajectoryBall2 from '../public/demo1.json';
 import trajectoryBall3 from '../public/demo1.json';
 import trajectoryBall4 from '../public/demo1.json';
@@ -21,7 +21,7 @@ import './index.css';
 const isMobile = window.innerWidth<500?true:false;
 const bowlerCoords = [10.3, 2.4, 0]; 
 let slipCoords = [-12.5, 1.5, 2]; 
-const stumpsCoords = [-16, 5, 0]; 
+const stumpsCoords = [-16, 3.5, 0]; 
 
 if(isMobile){
     slipCoords = [-12.5, 1.5, 0.2];
@@ -39,11 +39,11 @@ const velocity = 9;
 
 function createTrajectory (data, ballMesh, ballsTogether) {
     const trajectoryData = data.match.delivery.trajectory; 
-    const sphereGeometry = new THREE.SphereGeometry(0.1, 40, 20);
+    const sphereGeometry = new THREE.SphereGeometry(0.07, 40, 20);
     const imgBall = textureLoader.load(ballUrl);
     const sphereMaterial = new THREE.MeshBasicMaterial({
         map: imgBall, playTheseBalls
-    });
+    }); 
     ballMesh.ball = new THREE.Mesh(sphereGeometry, sphereMaterial);
     ballMesh.ball.visible = ballsTogether;
     ballMesh.ball.name = 'ball';
@@ -52,10 +52,12 @@ function createTrajectory (data, ballMesh, ballsTogether) {
     const releasePosition = trajectoryData.releasePosition;
     const bouncePosition = trajectoryData.bouncePosition;
     const creasePosition = trajectoryData.stumpPosition;
+    
     let myX = -10.06 + bouncePosition.x;
     if(bouncePosition.x < 0){
         myX = -(10.06 + bouncePosition.x);
     }
+
     bouncePosition.x = myX ;
     //const creasePosition = trajectoryData.creasePosition; 
     const vecRelease = new THREE.Vector3(releasePosition.x, releasePosition.z, releasePosition.y);
@@ -89,7 +91,7 @@ function createTrajectory (data, ballMesh, ballsTogether) {
     geometry.setPoints(pointsLines.flat());
     const materialLine = new MeshLineMaterial({
         color: ballMesh.colorLine,
-        lineWidth: 0.15,
+        lineWidth: 0.1,
         transparent: true,
         opacity: 0.5,
     });
@@ -101,6 +103,7 @@ function createTrajectory (data, ballMesh, ballsTogether) {
     ballMesh.directions = directions;
     ballMesh.render = true;
 }
+
 
 // function playTheseBalls (ballsTogetherBoolean, data1, data2, data3, data4, data5, data6) {
 
@@ -114,6 +117,8 @@ window.playTheseBalls = async function (ballsTogetherBoolean, data1, data2, data
        trajectoryBall1 = data1;//await import("../public/"+data1+".json");
        balls.push({ball: null, line: null, animation: 0, countDrawn: 0, directions: [], render: false, colorLine: 0xff0000});
        createTrajectory(trajectoryBall1, balls[0], ballsTogetherBoolean);
+       console.log("trajectoryBall1: ");
+       console.log(trajectoryBall1);
     };
     if (data2) {
         trajectoryBall2 = data2;//await import("../public/"+data2+".json");
@@ -201,8 +206,8 @@ window.resetA = function() {
 const light = new THREE.AmbientLight(0xffffff, 0.8);
 scene.add(light);
 
-let xField = 32;
-let zField = -34;
+let xField = 33;
+let zField = -50;
 
 for (let i = 1; i < 26; i++) {
     const floorImg = textureLoader.load(floorURl);
@@ -218,14 +223,14 @@ for (let i = 1; i < 26; i++) {
     floor.position.set(xField, -.1, zField);
     scene.add(floor);
     xField -= 17;
-    if (i % 5 === 0) {
+    if (i % 4 === 0) {
         zField += 17;
-        xField = 32;
+        xField = 33;
     }
 }
 
 const fieldImg = textureLoader.load(field1Url);
-const fieldGeometry = new THREE.PlaneGeometry(22.49, 6);
+const fieldGeometry = new THREE.PlaneGeometry(22.30, 4.5);
 const fieldMaterial = new THREE.MeshBasicMaterial({
     color: 0xffffff,
     side: THREE.BackSide,
@@ -237,29 +242,35 @@ field.position.set(0, -0.06, 0);
 field.rotateOnAxis( new THREE.Vector3( 1, 0, 0 ), THREE.MathUtils.degToRad(90) );
 scene.add(field);
 
+
 const backImg = textureLoader.load(stadiumUrl);
-const backGeometry = new THREE.PlaneGeometry(220, 30);
+const backGeometry = new THREE.PlaneGeometry(180, 20);
 const backMaterial = new THREE.MeshBasicMaterial({
     side: THREE.DoubleSide,
     transparent: true,
     map: backImg
 });
 const backStadio = new THREE.Mesh(backGeometry, backMaterial);
-backStadio.rotateOnAxis( new THREE.Vector3( 0, 1, 0  ), THREE.MathUtils.degToRad(90) );
-backStadio.position.set(70, 11, 0);
+backStadio.rotateOnAxis( new THREE.Vector3( 0, 1, 0  ), THREE.MathUtils.degToRad(270) );
+backStadio.position.set(45, 9, 0);
 scene.add(backStadio);
 
 const backStadio2 = new THREE.Mesh(backGeometry, backMaterial);
-backStadio2.rotateOnAxis( new THREE.Vector3( 0, 1, 0  ), THREE.MathUtils.degToRad(270) );
-backStadio2.position.set(-70, 11, 0);
+backStadio2.rotateOnAxis( new THREE.Vector3( 0, 1, 0  ), THREE.MathUtils.degToRad(90) );
+backStadio2.position.set(-45, 8.5, 0);
 scene.add(backStadio2);
 
 
+const geometria = new THREE.SphereGeometry( 0.085, 32, 16 );
+const materialBola = new THREE.MeshBasicMaterial( { color: 0x0000FF, side: THREE.DoubleSide } );
+const bola = new THREE.Mesh( geometria, materialBola );
+bola.position.set(-10.06, 0.58, -0.8); 
+//scene.add(bola);
 
 
 
 const wicketsImg = textureLoader.load(wicketsUrl);
-const wicketsGeometry = new THREE.PlaneGeometry(0.6, 1.9);
+const wicketsGeometry = new THREE.PlaneGeometry(0.22, 0.71);
 const wicketsMaterial = new THREE.MeshBasicMaterial({
     side: THREE.DoubleSide,
     transparent: true,
@@ -269,16 +280,16 @@ const wicketsMaterial = new THREE.MeshBasicMaterial({
 const wickets = new THREE.Mesh(wicketsGeometry, wicketsMaterial); 
 wickets.rotateOnAxis( new THREE.Vector3( 0, 1, 0  ), THREE.MathUtils.degToRad(270) ); 
 wickets.rotateOnAxis( new THREE.Vector3( 1, 0, 0  ), THREE.MathUtils.degToRad(-12) ); 
-wickets.position.set(-9.9, 0.6, 0); 
+wickets.position.set(-9.9, 0.3, 0); 
 scene.add(wickets); 
 
 const wickets2 = new THREE.Mesh(wicketsGeometry, wicketsMaterial);
 wickets2.rotateOnAxis( new THREE.Vector3( 0, 1, 0  ), THREE.MathUtils.degToRad(90) );
-wickets2.position.set(10.03, 0.6, 0);
+wickets2.position.set(10.03, 0.3, 0);
 scene.add(wickets2);
 
 
-var geo = new THREE.PlaneBufferGeometry(20, 0.5);
+var geo = new THREE.PlaneBufferGeometry(20, 0.2);
 var mat = new THREE.MeshBasicMaterial({ color: 0x9999ff, transparent: true, opacity: 0.15, side: THREE.DoubleSide });
 var plane = new THREE.Mesh(geo, mat);
 plane.rotateX( - Math.PI / 2);
@@ -371,7 +382,7 @@ function animateBall (ball) {
         ball.ball.position.x = position.x;
         ball.ball.position.y = position.y;
         ball.ball.position.z = position.z;
-        ball.line.geometry.setDrawRange( 0, ball.countDrawn );
+        ball.line.geometry.setDrawRange( 0, ball.countDrawn  );
         const countDrawn = ball.countDrawn + 6;
         ball.countDrawn = countDrawn;
         const animation = ball.animation + 1;
@@ -420,7 +431,7 @@ setTimeout(function(){
 
 
 //setView("bowler");
-//playTheseBalls(false, "demo1", "demo1", "demo1", "demo1", "demo1", "demo1"); 
+//playTheseBalls(false, "test"); 
 
 
 

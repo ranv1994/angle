@@ -202,7 +202,7 @@ const light = new THREE.AmbientLight(0xffffff, 0.8);
 scene.add(light);
 
 let xField = 32;
-let zField = -32;
+let zField = -34;
 
 for (let i = 1; i < 26; i++) {
     const floorImg = textureLoader.load(floorURl);

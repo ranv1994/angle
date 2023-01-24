@@ -238,7 +238,7 @@ field.rotateOnAxis( new THREE.Vector3( 1, 0, 0 ), THREE.MathUtils.degToRad(90) )
 scene.add(field);
 
 const backImg = textureLoader.load(stadiumUrl);
-const backGeometry = new THREE.PlaneGeometry(165, 30);
+const backGeometry = new THREE.PlaneGeometry(220, 30);
 const backMaterial = new THREE.MeshBasicMaterial({
     side: THREE.DoubleSide,
     transparent: true,

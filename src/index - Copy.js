@@ -39,16 +39,7 @@ const velocity = 9;
 
 function createTrajectory (data, ballMesh, ballsTogether) {
     const trajectoryData = data.match.delivery.trajectory; 
-    
-    // the line bellow has a ball size twice bigger for visual propposes 
-    const sphereGeometry = new THREE.SphereGeometry(0.071, 40, 20);
-
-    // the size of the ball is 7.1 cm in diameter 
-    // SphereGeometry first parameter specifies the radius 
-    // the line bellow has the exact ball size 
-    // const sphereGeometry = new THREE.SphereGeometry(0.036, 40, 20);
-    // in case you change the ball size, you may need to adjust the line behind the ball
-    // change it in line 112 "lineWidth"
+    const sphereGeometry = new THREE.SphereGeometry(0.07, 40, 20);
     const imgBall = textureLoader.load(ballUrl);
     const sphereMaterial = new THREE.MeshBasicMaterial({
         map: imgBall, playTheseBalls
@@ -64,17 +55,8 @@ function createTrajectory (data, ballMesh, ballsTogether) {
     
     let myX = -10.06 + bouncePosition.x;
     if(bouncePosition.x < 0){
-        myX = -(10.06 + bouncePosition.x); 
+        myX = -(10.06 + bouncePosition.x);
     }
-
-    let myYBounce = bouncePosition.y * -1;
-    bouncePosition.y = myYBounce;
-
-    let myYstump = creasePosition.y * -1;
-    creasePosition.y = myYstump;
-
-    let myYRelease = releasePosition.y * -1;
-    releasePosition.y = myYRelease;
 
     bouncePosition.x = myX ;
     //const creasePosition = trajectoryData.creasePosition; 
@@ -288,7 +270,7 @@ bola.position.set(-10.06, 0.58, -0.8);
 
 
 const wicketsImg = textureLoader.load(wicketsUrl);
-const wicketsGeometry = new THREE.PlaneGeometry(0.22, 0.72);
+const wicketsGeometry = new THREE.PlaneGeometry(0.22, 0.71);
 const wicketsMaterial = new THREE.MeshBasicMaterial({
     side: THREE.DoubleSide,
     transparent: true,

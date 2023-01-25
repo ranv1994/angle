@@ -19,8 +19,8 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import './index.css';
 
 const isMobile = window.innerWidth<500?true:false;
-const bowlerCoords = [10.3, 2.4, 0]; 
-let slipCoords = [-12.5, 1.5, 2]; 
+const bowlerCoords = [10.3, 2.2, 0]; 
+let slipCoords = [-13.3, 1.5, 2]; 
 const stumpsCoords = [-16, 3.5, 0]; 
 
 if(isMobile){

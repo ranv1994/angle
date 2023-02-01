@@ -3,6 +3,7 @@ import ballUrl from '../public/ball-uv.png';
 import floorURl from '../public/piso.png';
 import field1Url from '../public/pitch.png';
 import stadiumUrl from '../public/stadium350.png';
+import stadiumUrl_IPL from '../public/statdium_ipl.png';
 import trajectoryBall1 from '../public/test.json';
 import trajectoryBall2 from '../public/demo1.json';
 import trajectoryBall3 from '../public/demo1.json';
@@ -13,12 +14,15 @@ import trajectoryBall6 from '../public/demo1.json';
 // import stumpsUrl from '../public/stumps.png';
 // import slipUrl from '../public/slip.png';
 import wicketsUrl from '../public/adWickets.png';
+import wicketsUrl_IPL from '../public/adWickets_ipl.png';
 import gsap from 'gsap';
 import { MeshLine, MeshLineMaterial } from 'three.meshline';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import './index.css';
 
 const isMobile = window.innerWidth<500?true:false;
+let mParam = new URLSearchParams(window.location.search);
+
 let bowlerCoords = [10.3, 2.2, 0]; 
 let slipCoords = [-13.3, 1.5, 2]; 
 const stumpsCoords = [-16, 3.5, 0]; 
@@ -262,7 +266,7 @@ field.rotateOnAxis( new THREE.Vector3( 1, 0, 0 ), THREE.MathUtils.degToRad(90) )
 scene.add(field);
 
 
-const backImg = textureLoader.load(stadiumUrl);
+const backImg = textureLoader.load(mParam.get('ipl')==null?stadiumUrl:stadiumUrl_IPL);
 const backGeometry = new THREE.PlaneGeometry(180, 20);
 const backMaterial = new THREE.MeshBasicMaterial({
     side: THREE.DoubleSide,
@@ -288,7 +292,7 @@ bola.position.set(-10.06, 0.58, -0.8);
 
 
 
-const wicketsImg = textureLoader.load(wicketsUrl);
+const wicketsImg = textureLoader.load(mParam.get('ipl')==null?wicketsUrl:wicketsUrl_IPL);
 const wicketsGeometry = new THREE.PlaneGeometry(0.22, 0.72);
 const wicketsMaterial = new THREE.MeshBasicMaterial({
     side: THREE.DoubleSide,
@@ -462,7 +466,7 @@ var innings = [];
 var CurrentBallD = {};
 var IningData = [];
 IningData[0] = {};
-let mParam = new URLSearchParams(window.location.search);
+
 function setAllFilters(eid,matchId){
     let url = "https://rest.entitysport.com/v2/matches/"+eid+"/innings/info?token="+mToken;
     let api_request = httpGetAsyncEntity(url);

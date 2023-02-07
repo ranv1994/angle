@@ -22,6 +22,9 @@ import './index.css';
 
 const isMobile = window.innerWidth<500?true:false;
 let mParam = new URLSearchParams(window.location.search);
+if(!isMobile && mParam.get('ipl')!=null){
+    document.querySelector('.container').classList.add("iplClass");
+}
 
 let bowlerCoords = [10.3, 2.2, 0]; 
 let slipCoords = [-13.3, 1.5, 2]; 

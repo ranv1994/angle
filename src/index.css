@@ -118,7 +118,7 @@ html {
 }
 #cmFilters select,
 .mywickets{
-    padding: 8px;
+    padding: 5px 8px;
     width: 100%;
     margin-top: 3px;
     border: 1px solid #ff2100;
@@ -141,7 +141,7 @@ html {
     background-color: #FF2100;
     border-radius: 5px;
     text-align: center;
-    line-height: 33px;
+    line-height: 28px;
     font-size: 14px;
     cursor: pointer;
     font-weight: 700;
@@ -155,7 +155,7 @@ html {
     margin-top: 15px;
 }
 .graphFooter p{
-    margin-top: 15px;
+    margin-top: 10px;
     margin-bottom: 0;
     font-weight: 700;
     margin-left: 7%;
@@ -166,7 +166,7 @@ html {
     font-weight: 700;
 }
 .textBallInfo{
-    margin: 8px 0;
+    margin: 4px 0;
     color: #fff;
     text-align: center;
     text-transform: capitalize;
@@ -174,8 +174,8 @@ html {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
     font-weight: 700;
-    font-size: 24px;
-    line-height: 37px;
+    font-size: 22px;
+    line-height: 30px;
 }
 .graphFooter{
     background: #fff;

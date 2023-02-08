@@ -22,7 +22,7 @@ import './index.css';
 
 const isMobile = window.innerWidth<500?true:false;
 let mParam = new URLSearchParams(window.location.search);
-if(!isMobile && mParam.get('ipl')!=null){
+if(mParam.get('ipl')!=null){
     document.querySelector('.container').classList.add("iplClass");
 }
 
@@ -191,7 +191,7 @@ const renderer = new THREE.WebGL1Renderer({
 });
 
 renderer.setClearColor(0x000000, 0);
-renderer.setSize(isMobile?window.innerWidth:(window.innerWidth-17), !isMobile?(window.innerHeight-160):(window.innerHeight-300));
+renderer.setSize(isMobile?window.innerWidth:(window.innerWidth-17), !isMobile?(window.innerHeight-160):(window.innerHeight-220));
 container.appendChild(renderer.domElement);
 
 

@@ -292,6 +292,9 @@ html {
         width: 30%;
         font-weight: 600;
     }
+    .iplClass .buttons-angle .anglechange{
+        background-color: #fff;
+    }
     .buttons-angle .anglechange.active{
         color: #fff;
         background: #FF2100;

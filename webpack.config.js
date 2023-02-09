@@ -31,8 +31,6 @@ module.exports = {
         },
         compress: true,
         port: 8080,
-        allowedHosts: [
-            '.onrender.com'
-        ]
+        disableHostCheck: true,
     },
 }

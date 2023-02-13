@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import ballUrl from '../public/ball-uv.png';
-import floorURl from '../public/piso.png';
+import floorURl from '../public/piso1.jpg';
 import field1Url from '../public/pitch.png';
 import stadiumUrl from '../public/stadium350.png';
 import stadiumUrl_IPL from '../public/statdium_ipl.png';

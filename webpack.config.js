@@ -31,6 +31,7 @@ module.exports = {
         },
         compress: true,
         port: 8080,
-        disableHostCheck: true,
+        allowedHosts: "hawkeye-bcci-dev.epicon.in"
+        //disableHostCheck : true,
     },
 }

@@ -2,8 +2,8 @@ import * as THREE from 'three';
 import ballUrl from '../public/ball-uv.png';
 import floorURl from '../public/piso1.jpg';
 import field1Url from '../public/pitch.png';
-import stadiumUrl from '../public/stadium350.png';
-import stadiumUrl_IPL from '../public/statdium_ipl.png';
+import stadiumUrl from '../public/stadium351.png';
+import stadiumUrl_IPL from '../public/statdium_ipl2.png';
 import trajectoryBall1 from '../public/test.json';
 import trajectoryBall2 from '../public/demo1.json';
 import trajectoryBall3 from '../public/demo1.json';
@@ -14,7 +14,7 @@ import trajectoryBall6 from '../public/demo1.json';
 // import stumpsUrl from '../public/stumps.png';
 // import slipUrl from '../public/slip.png';
 import wicketsUrl from '../public/adWickets.png';
-import wicketsUrl_IPL from '../public/adWickets_ipl.png';
+import wicketsUrl_IPL from '../public/adWickets_ipl2.png';
 import gsap from 'gsap';
 import { MeshLine, MeshLineMaterial } from 'three.meshline';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -179,9 +179,9 @@ scene.background = new THREE.Color(0xA3A3A3);
 const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1.1, 100);
 
 
-camera.position.x = stumpsCoords[0];
-camera.position.y = stumpsCoords[1];
-camera.position.z = stumpsCoords[2];
+camera.position.x = bowlerCoords[0];
+camera.position.y = bowlerCoords[1];
+camera.position.z = bowlerCoords[2];
 
 camera.lookAt(new THREE.Vector3(0, -2, 0));
 

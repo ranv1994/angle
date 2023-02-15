@@ -294,6 +294,7 @@ html {
     }
     .iplClass .buttons-angle .anglechange{
         background-color: #fff;
+        color: #1250C9;
     }
     .buttons-angle .anglechange.active{
         color: #fff;

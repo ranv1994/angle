@@ -483,7 +483,7 @@ function setAllFilters(eid,matchId){
                     restFilters();
                     for(var i in innings){
                         if(i!=0){
-                            let url5 = "https://rest.entitysport.com/v2/matches/"+eid+"/innings/"+innings[i].number+"/commentary?actualball=1&token="+mToken;
+                            let url5 = "https://rest.entitysport.com/v2/matches/"+eid+"/innings/"+innings[i].number+"/commentary?token="+mToken+"&actualball=1";
                             let api_request3 = httpGetAsyncEntity(url5);
                             IningData[i] = api_request3.response;
                         }

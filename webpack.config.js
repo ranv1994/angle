@@ -31,7 +31,7 @@ module.exports = {
         },
         compress: true,
         port: 8080,
-        allowedHosts: "hawkeye-bcci-dev.epicon.in"
+        allowedHosts: ["hawkeye-bcci-dev.epicon.in","onrender.com"]
         //disableHostCheck : true,
     },
 }

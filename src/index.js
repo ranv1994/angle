@@ -17,7 +17,6 @@ import wicketsUrl from '../public/adWickets.png';
 import wicketsUrl_IPL from '../public/adWickets_ipl2.png';
 import gsap from 'gsap';
 import { MeshLine, MeshLineMaterial } from 'three.meshline';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import './index.css';
 
 const isMobile = window.innerWidth<500?true:false;
@@ -143,8 +142,6 @@ window.playTheseBalls = async function (ballsTogetherBoolean, data1, data2, data
        trajectoryBall1 = data1;//await import("../public/"+data1+".json");
        balls.push({ball: null, line: null, animation: 0, countDrawn: 0, directions: [], render: false, colorLine: 0xff0000});
        createTrajectory(trajectoryBall1, balls[0], ballsTogetherBoolean);
-       console.log("trajectoryBall1: ");
-       console.log(trajectoryBall1);
     };
     if (data2) {
         trajectoryBall2 = data2;//await import("../public/"+data2+".json");
@@ -191,7 +188,7 @@ const renderer = new THREE.WebGL1Renderer({
 });
 
 renderer.setClearColor(0x000000, 0);
-renderer.setSize(isMobile?window.innerWidth:(window.innerWidth-17), !isMobile?(window.innerHeight-160):(window.innerHeight-220));
+renderer.setSize(window.innerWidth, !isMobile?(window.innerHeight-160):(window.innerHeight-220));
 container.appendChild(renderer.domElement);
 
 
@@ -481,6 +478,8 @@ function setAllFilters(eid,matchId){
                 if(api_request2.status == 'ok'){
                     IningData[0] = api_request2.response;
                     restFilters();
+                    document.querySelector('#styleHide').removeAttribute('style');
+                    document.querySelector('#coverScreen').remove();
                     for(var i in innings){
                         if(i!=0){
                             let url5 = "https://rest.entitysport.com/v2/matches/"+eid+"/innings/"+innings[i].number+"/commentary?token="+mToken+"&actualball=1";
@@ -510,6 +509,7 @@ let myballs = document.querySelector('.myballs');
 let mywickets = document.querySelector('.mywickets');
 var textBallInfo = document.querySelector('.textBallInfo');
 myinnings.addEventListener('change', function () {
+    console.log(77777);
     let currInn = {};
     let currInnover = 0;
     
@@ -564,7 +564,7 @@ myinnings.addEventListener('change', function () {
     callTheBallAfterChange()
 });
 
-function restFilters() {
+window.restFilters =  function () {
     var event = new CustomEvent("change", { "detail": "Example of an event" });
     let content_inns = '';
     for(var i in innings){

@@ -30,8 +30,8 @@ let slipCoords = [-13.3, 1.5, 2];
 const stumpsCoords = [-16, 3.5, 0]; 
 
 if(isMobile){
-    slipCoords = [-14.2, 1.5, 0.2];
-    bowlerCoords = [11.3, 2.2, 0]; 
+    slipCoords = [-14.5, 1.2, 0.2];
+    bowlerCoords = [13.7, 2.2, 0]; 
 }
 
 function getControlPoint (p1, p2) {

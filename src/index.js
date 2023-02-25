@@ -512,7 +512,6 @@ let myballs = document.querySelector('.myballs');
 let mywickets = document.querySelector('.mywickets');
 var textBallInfo = document.querySelector('.textBallInfo');
 myinnings.addEventListener('change', function () {
-    console.log(77777);
     let currInn = {};
     let currInnover = 0;
     

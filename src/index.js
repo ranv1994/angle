@@ -479,7 +479,10 @@ function setAllFilters(eid,matchId){
                     IningData[0] = api_request2.response;
                     restFilters();
                     document.querySelector('#styleHide').removeAttribute('style');
-                    document.querySelector('#coverScreen').remove();
+                    setTimeout(function(){
+                        document.querySelector('#coverScreen').remove();
+                    },400)
+                    
                     for(var i in innings){
                         if(i!=0){
                             let url5 = "https://rest.entitysport.com/v2/matches/"+eid+"/innings/"+innings[i].number+"/commentary?token="+mToken+"&actualball=1";

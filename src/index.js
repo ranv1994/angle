@@ -30,7 +30,7 @@ let slipCoords = [-13.3, 1.5, 2];
 const stumpsCoords = [-16, 3.5, 0]; 
 
 if(isMobile){
-    slipCoords = [-14.5, 1.2, 0.2];
+    slipCoords = [-16, 1.2, 0.5];
     bowlerCoords = [13.7, 2.2, 0]; 
 }
 

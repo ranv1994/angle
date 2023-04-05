@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "gsap": "^3.11.3",
-    "three": "^0.147.0",
+    "three": "^0.151.3",
     "three-math": "^0.69.0",
     "three.meshline": "^1.4.0"
   }

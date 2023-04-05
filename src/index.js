@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import ballUrl from '../public/ball-uv.png';
 import floorURl from '../public/piso1.jpg';
-// import field1Url from '../public/pitch.png';
+import field1Url from '../public/pitch.png';
 import stadiumUrl from '../public/stadium351.png';
 import stadiumUrl_IPL from '../public/statdium_ipl2.png';
 import trajectoryBall1 from '../public/test.json';
@@ -18,8 +18,6 @@ import wicketsUrl_IPL from '../public/adWickets_ipl2.png';
 import gsap from 'gsap';
 import { MeshLine, MeshLineMaterial } from 'three.meshline';
 import './index.css';
-
-const field1Url = require('../public/pitch.png');
 
 const isMobile = window.innerWidth<500?true:false;
 let mParam = new URLSearchParams(window.location.search);

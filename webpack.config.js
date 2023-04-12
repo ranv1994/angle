@@ -3,7 +3,7 @@ const path = require('path');
 const webpack = require('webpack'); //to access built-in plugins
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/index.js?v=1.0',
     output: {
         path: __dirname + '/dist',
         filename: 'bundle.js?v=1.0'
